@@ -6,7 +6,6 @@
     "description": "API documentation for cars api"
   },
   "tags": [
-    { "name": "Cars", "description": "Cars and CORS operations " },
     { "name": "Forecast", "description": "Get forecast" },
     { "name": "Admin", "description": "Operations related to admin " }
   ],
@@ -32,7 +31,7 @@
           {
             "name": "item",
             "in": "query",
-            "description": "for current day or forecast on 5 days ",
+            "description": "daily forecast for 5 days  or current day",
             "required": false,
             "type": "string",
             "enum": ["CurrentDay", "For5Days"]
@@ -57,317 +56,25 @@
       }
 
     },
-    "/auth/register": {
+    "/weather/subscribe": {
       "post": {
-        "tags": ["Authentication"],
-        "summary": "Register user",
+        "tags": ["Forecast"],
+        "summary": "Subscribe on forecast and forecasts alerts",
         "parameters": [
           {
             "in": "body",
-            "description": "register",
+            "description": "Create subscribe with data",
             "required": true,
-            "name": "body",
-            "schema": {
-              "$ref": "#/definitions/createUser"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "User created",
-            "schema": {
-              "type": "object",
-              "$ref": "#/definitions/user"
-            }
-          }
-        }
-      }
-
-    },
-    "/auth/sellerRegister": {
-      "post": {
-        "tags": ["Admin"],
-        "summary": "Register user",
-        "parameters": [
-          {
-            "in": "header",
-            "description": "register seller",
-            "required": true,
-            "name": "adminToken",
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "description": "register seller",
-            "required": true,
-            "name": "body",
-            "schema": {
-              "$ref": "#/definitions/createUser"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "User created",
-            "schema": {
-              "type": "object",
-              "$ref": "#/definitions/user"
-            }
-          }
-        }
-      }
-
-    },
-    "/auth/managerRegister": {
-      "post": {
-        "tags": ["Admin"],
-        "summary": "Register manager",
-        "parameters": [
-          {
-            "in": "header",
-            "description": "register manager",
-            "required": true,
-            "name": "adminToken",
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "description": "register manager",
-            "required": true,
-            "name": "body",
-            "schema": {
-              "$ref": "#/definitions/createUser"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "User created",
-            "schema": {
-              "type": "object",
-              "$ref": "#/definitions/user"
-            }
-          }
-        }
-      }
-
-    },
-    "/auth/me": {
-      "get": {
-        "tags": ["Authentication"],
-        "summary": "Info about user",
-        "parameters": [
-          {
-            "in": "header",
-            "description": "register",
-            "required": true,
-            "name": "Authorization",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "User info",
-            "schema": {
-              "type": "object",
-              "$ref": "#/definitions/user"
-            }
-          }
-        }
-      }
-    },
-    "/auth/logout": {
-      "post": {
-        "tags": ["Authentication"],
-        "summary": "Logout",
-        "parameters": [
-          {
-            "in": "header",
-            "description": "Logout user",
-            "required": true,
-            "name": "Authorization",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Logout succeed"
-          }
-        }
-      }
-    },
-    "/auth/changePassword": {
-      "post": {
-        "tags": ["Authentication"],
-        "summary": "Change user's  password",
-        "parameters": [
-          {
-            "in": "body",
-            "description": "Change user's  password",
-            "required": true,
-            "name": "Authorization",
+            "name": "Subscriber properties",
             "schema": {
               "properties": {
-                "old_password":{
-                "type": "string"
+                "name":{
+                  "type": "string"
                 },
-                "password":{
-                  "type": "string"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Password was changed"
-          }
-        }
-      }
-    },
-    "/auth/refresh": {
-      "post": {
-        "tags": [
-          "Authentication"
-        ],
-        "summary": "Get refresh token",
-        "parameters": [
-          {
-            "in": "header",
-            "description": "refresh token",
-            "required": true,
-            "name": "Refresh",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "User info",
-            "schema": {
-              "type": "object",
-              "$ref": "#/definitions/TokenResponse"
-            }
-          }
-        }
-      }
-    },
-    "/auth/confirmPassword": {
-      "post": {
-        "tags": [
-          "Authentication"
-        ],
-        "summary": "Confirm password",
-        "parameters": [
-          {
-            "in": "body",
-            "description": "Active token",
-            "required": true,
-            "name": "token",
-            "schema": {
-              "properties": {
-                "token": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Password was activated"
-          }
-        }
-      }
-    },
-    "/users": {
-      "get": {
-        "tags": [
-          "Authentication"
-        ],
-        "summary": "Get all",
-        "parameters": [
-          {
-            "in": "header",
-            "description": "Get all users",
-            "required": true,
-            "name": "token",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "schema": {
-              "type": "array",
-              "$ref": "#/definitions/user"
-            },
-            "description": "Get all users"
-          }
-        }
-      }
-    },
-    "/users/delete": {
-      "delete": {
-        "tags": [
-          "Admin"
-        ],
-        "summary": "Delete user",
-        "parameters": [
-          {
-            "in": "header",
-            "description": "Delete user",
-            "required": true,
-            "name": "adminToken",
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "description": "Delete user",
-            "required": true,
-            "name": "id",
-            "schema": {
-              "properties": {
-                "id":{
-                  "type": "string"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Users was deleted"
-          }
-        }
-      }
-    },
-    "/users/update": {
-      "patch": {
-        "tags": [
-          "Authentication"
-        ],
-        "summary": "Update user",
-        "parameters": [
-          {
-            "in": "header",
-            "description": "Access user's  token ",
-            "required": true,
-            "name": "accessToken",
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "description": "Update user",
-            "required": true,
-            "name": "User properties",
-            "schema": {
-              "properties": {
-                "avatar":{
+                "email":{
                   "type": "string"
                 },
                 "age":{
-                  "type": "string"
-                },
-                "name":{
                   "type": "string"
                 },
                 "city":{
@@ -379,216 +86,40 @@
         ],
         "responses": {
           "200": {
-            "description": "Users was updated",
+            "description": "subscribe forecast of your city",
             "schema": {
               "type": "object",
-              "properties": {
-                "avatar":{
-                  "type": "string"
-                },
-                "age":{
-                  "type": "string"
-                },
-                "name":{
-                  "type": "string"
-                },
-                "city":{
-                  "type": "string"
-                }
-              }
+              "$ref": "#/definitions/subscribe"
             }
-          }
-        }
-      }
-    },
-    "/cars": {
-      "get": {
-        "tags": ["Cars"],
-        "summary": "Get all cars",
-        "parameters": [
-          {
-            "name": "page",
-            "in": "query",
-            "description": "get current page",
-            "required": false,
-            "type": "number",
-            "default": 1
           },
-          {
-            "name": "currency",
-            "in": "query",
-            "description": "set currency ",
-            "required": false,
-            "type": "string",
-            "enum": ["UAH", "EUR", "USD"]
+          "401": {
+            "description": "Unauthorized"
+
           },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "set limit per page ",
-            "required": false,
-            "type": "string",
-            "default": 5
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Car"
-              }
-            }
+          "400": {
+            "description": "Fields are not valid"
+
+          },
+          "404": {
+            "description": "Not Found. You can get 404 error if data with requested parameters (lat, lon, date etc) does not exist in service database. You must not retry the same request"
           }
         }
       }
 
     },
-    "/cars/create": {
+    "/weather/stop-subscribe": {
       "post": {
-        "tags": ["Cars"],
-        "summary": "Post a car",
+        "tags": ["Forecast"],
+        "summary": "Unsubscribe on forecast and forecasts alerts",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "identify your rights",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "image",
-            "in": "formData",
-            "description": "image of car",
-            "required": false,
-            "type": "file"
-          },
-          {
-            "name": "description",
             "in": "body",
-            "description": "tell about you car ",
+            "description": "Unsubscribe",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type_currency",
-            "in": "query",
-            "description": "set currency ",
-            "required": false,
-            "type": "string",
-            "enum": ["UAH", "EUR", "USD"]
-          },
-          {
-            "name": "currency",
-            "in": "body",
-            "description": "set price of car ",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "model",
-            "in": "body",
-            "description": "brand of car",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Car"
-              }
-            }
-          }
-        }
-      }
-
-    },
-    "/cars/updateCar": {
-      "patch": {
-        "tags": ["Cars"],
-        "summary": "Update a car",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "query",
-            "description": "car id",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "image",
-            "in": "formData",
-            "description": "image of car",
-            "required": false,
-            "type": "file"
-          },
-          {
-            "in": "body",
-            "description": "car body",
-            "required": true,
-            "name": "body",
-            "schema": {
-              "$ref": "#/definitions/update"
-            }
-          }
-
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Car"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/cars/getById/{id}": {
-      "get": {
-        "tags": ["Cars"],
-        "summary": "Get by id",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "query",
-            "description": "get cars by id",
-            "required": true,
-            "type": "number"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Get a car",
-            "schema": {
-              "type": "object",
-              "$ref": "#/definitions/Car"
-            }
-          }
-        }
-      }
-
-    },
-    "/cars/buy": {
-      "post": {
-        "tags": ["Cars"],
-        "summary": "Buy",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "body",
-            "description": "buy a car",
-            "required": true,
+            "name": "Subscriber email",
             "schema": {
               "properties": {
-                "id": {
+                "email":{
                   "type": "string"
                 }
               }
@@ -597,118 +128,65 @@
         ],
         "responses": {
           "200": {
-            "description": "Get a car after buy",
+            "description": "unsubscribe on forecast of your city",
             "schema": {
               "type": "object",
-              "$ref": "#/definitions/Car"
-            }
-          }
-        }
-      }
-
-    },
-    "/cars/getUsersCars": {
-      "get": {
-        "tags": ["Cars"],
-        "summary": "Seller cars",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Get seller cars for sell",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Get seller cars",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Car"
+              "properties": {
+                "data": {
+                  "type": "string",
+                  "description": "You have unsubscribed"
+                }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized"
+
+          },
+          "400": {
+            "description": "Fields are not valid"
+
+          },
+          "404": {
+            "description": "Not Found. You can get 404 error if data with requested parameters (lat, lon, date etc) does not exist in service database. You must not retry the same request"
           }
         }
       }
 
     },
-    "/cars/delete": {
-      "delete": {
-        "tags": ["Cars"],
-        "summary": "Delete a car",
+    "/weather/getAirCondition": {
+      "post": {
+        "tags": ["Forecast"],
+        "summary": "Current air condition",
         "parameters": [
           {
-            "name": "id",
+            "name": "get air condition",
             "in": "body",
-            "description": "Delete a car by id ",
+            "description": "name of the current city",
             "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Delete current car",
             "schema": {
-              "type": "string"
-
-            },
-            "examples": {
-              "application/json": {
-                "info": "Car was deleted"
+              "properties": {
+                "city": {
+                  "type": "string"
+                }
               }
             }
           }
-        }
-      }
-
-    },
-    "/cars/likes/{id}": {
-      "post": {
-        "tags": ["Cars"],
-        "summary": "Like a car",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "query",
-            "description": "Like a car",
-            "required": true,
-            "type": "number"
-          }
         ],
         "responses": {
           "200": {
-            "description": "Get a car",
+            "description": "get air of current city",
             "schema": {
               "type": "object",
-              "$ref": "#/definitions/Car"
+              "$ref": "#/definitions/air"
             }
-          }
-        }
-      }
+          },
+          "401": {
+            "description": "Unauthorized"
 
-    },
-    "/cars/dislikes/{id}": {
-      "post": {
-        "tags": ["Cars"],
-        "summary": "Dislikes a car",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "query",
-            "description": "Dislike a car",
-            "required": true,
-            "type": "number"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Get a car",
-            "schema": {
-              "type": "object",
-              "$ref": "#/definitions/Car"
-            }
+          },
+          "404": {
+            "description": "Not Found. You can get 404 error if data with requested parameters (lat, lon, date etc) does not exist in service database. You must not retry the same request"
           }
         }
       }
@@ -716,49 +194,59 @@
     }
   },
   "definitions": {
-    "update": {
+    "air": {
       "type": "object",
+      "description": "air condition",
       "properties": {
-        "name": {
-          "description": "tell about you car ",
-          "type": "string"
-        },
-        "type_currency": {
+        "co":{
           "type": "string",
-          "enum": ["UAH", "EUR", "USD"]
+          "description": "Сoncentration of CO (Carbon monoxide), μg/m3"
         },
-        "currency": {
-          "description": "set price of car ",
-          "type": "integer"
+        "no":{
+          "type": "string",
+          "description": "Сoncentration of NO2 (Nitrogen dioxide), μg/m3"
         },
-        "model": {
-          "description": "brand of car",
-          "type": "string"
+        "no2":{
+          "type": "string",
+          "description": "Сoncentration of O3 (Ozone), μg/m3"
+        },
+        "o3":{
+          "type": "string",
+          "description": "Сoncentration of SO2 (Sulphur dioxide), μg/m3"
         }
       }
     },
-    "createUser": {
+
+    "subscribe": {
       "type": "object",
       "properties": {
+        "_id": {
+          "type": "string",
+          "description": "subscriber id"
+        },
         "name": {
           "type": "string",
-          "description": "User name"
+          "description": "subscriber name"
         },
         "email": {
           "type": "string",
-          "description": "User email"
-        },
-        "password": {
-          "type": "string",
-          "description": "User password"
+          "description": "subscriber email"
         },
         "city": {
           "type": "string",
-          "description": "User city"
+          "description": "subscriber city"
         },
         "age": {
+          "type": "number",
+          "description": "subscriber age"
+        },
+        "createdAt": {
           "type": "string",
-          "description": "User age"
+          "description": "when subscriber was created"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "when subscriber was updated"
         }
       }
     },

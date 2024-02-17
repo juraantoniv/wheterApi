@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 
+import { ApiError } from "../errors/api.error";
+import { subscriber } from "../models/subscriber.model";
 import { adminService } from "../services/admin.service";
 import { ISubscriber } from "../types/user.interface";
 import { SubscriberValidator } from "../validators/subscriber.validator";
@@ -50,11 +52,19 @@ class AdminController {
       next(e);
     }
   }
-  public async getById(req: Request, res: Response, next: NextFunction) {
+  public async deleteById(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.body;
+      const { id } = req.params;
 
-      await adminService.deleteSubscribeUser(id);
+      const user = await subscriber.findByIdAndDelete(id);
+
+      if (!user) {
+        throw new ApiError("User not found", 401);
+      }
+
+      return res.json({
+        data: "subscriber was deleted ",
+      });
     } catch (e) {
       next(e);
     }

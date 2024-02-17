@@ -1,14 +1,10 @@
 import { CronJob } from "cron";
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
 import OpenWeatherAPI from "openweather-api-node";
 
 import { configs } from "../configs/configs";
 import { EEmailAction } from "../enums/email.action.enum";
 import { subscriber } from "../models/subscriber.model";
 import { emailService } from "../services/email.service";
-
-dayjs.extend(utc);
 
 export const SendForecastAlertCronRunner = async () => {
   try {

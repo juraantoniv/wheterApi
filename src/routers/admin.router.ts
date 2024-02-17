@@ -9,7 +9,7 @@ router.get("/getAll", adminController.getAll);
 router.delete(
   "/delete:id",
   subscriberBodyMiddleware.checkId,
-  adminController.getById,
+  adminController.deleteById,
 );
 
 export const adminRouter = router;

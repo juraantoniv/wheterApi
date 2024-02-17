@@ -31,6 +31,6 @@ export const SendForecastCronRunner = async () => {
 };
 
 export const sendForecastCronRunner = new CronJob(
-  "*/100 * * * * *",
+  "0 7 * * *",
   SendForecastCronRunner,
 );

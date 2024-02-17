@@ -333,11 +333,50 @@
       "properties": {
           "astronomical": {
             "type": "object",
-            "description": "sunrise and sunset"
+            "description": "sunrise and sunset",
+            "properties": {
+              "sunrise": {
+                "type": "string"
+              },
+              "sunset": {
+                "type": "string"
+              }
+            }
           },
         "weather": {
           "type": "object",
-          "description": "data of forecast"
+          "description": "data of forecast",
+          "properties": {
+            "temp": {
+              "type": "string"
+            },
+            "feelsLike": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "humidity": {
+              "type": "string"
+            },
+            "visibility": {
+              "type": "string"
+            },
+            "main": {
+              "type": "string"
+            },
+            "wind": {
+              "type": "object",
+              "properties": {
+                "deg": {
+                  "type": "string"
+                },
+                "speed": {
+                  "type": "string"
+                }
+              }
+            }
+          }
         }
       }
     }

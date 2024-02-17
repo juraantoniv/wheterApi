@@ -13,9 +13,6 @@ export class SubscriberValidator {
     age: this.age.required(),
   });
 
-  static login = joi.object({
-    email: this.email.required(),
-  });
   static checkEmail = joi.object({
     email: this.email.required(),
   });

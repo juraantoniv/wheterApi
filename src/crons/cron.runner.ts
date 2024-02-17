@@ -1,5 +1,8 @@
-import { sendForecastCronRunner } from "./send.forecast.cron.runner";
+// import { sendForecastCronRunner } from "./send.forecast.cron.runner";
+
+// import { sendForecastAlertCronRunner } from "./send.alert.cron.runner";
 
 export const cronRunner = () => {
-  sendForecastCronRunner.start();
+  // sendForecastCronRunner.start();
+  // sendForecastAlertCronRunner.start();
 };

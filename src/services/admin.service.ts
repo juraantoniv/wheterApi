@@ -3,11 +3,16 @@ import { aminRepository } from "../repositories/admin.repository";
 import { ISubscriber } from "../types/user.interface";
 
 class AdminService {
-  public async deleteSubscribeUser(id: string) {
+  public async deleteSubscribeUser(email: string) {
     try {
-      await aminRepository.deleteSubscriber(id);
+      const user = await aminRepository.findByParams({ email: email });
+
+      if (!user) {
+        throw new ApiError("User not found", 401);
+      }
+
+      await aminRepository.findByParamsAndDelete({ email: email });
     } catch (e) {
-      console.log(e);
       throw new ApiError(e, 401);
     }
   }

@@ -7,39 +7,51 @@
   },
   "tags": [
     { "name": "Cars", "description": "Cars and CORS operations " },
-    { "name": "Authentication", "description": "Operations related to user authentication" },
+    { "name": "Forecast", "description": "Get forecast" },
     { "name": "Admin", "description": "Operations related to admin " }
   ],
   "paths": {
-    "/auth/login": {
+    "/weather/cityForecast": {
       "post": {
-        "tags": ["Authentication"],
-        "summary": "Login",
+        "tags": ["Forecast"],
+        "summary": "Current and forecasts weather data",
         "parameters": [
           {
-            "name": "email and password",
+            "name": "get forecast of current city",
             "in": "body",
-            "description": "User's email and password",
+            "description": "name of the current city",
             "required": true,
             "schema": {
               "properties": {
-                "email": {
-                  "type": "string"
-                },
-                "password": {
+                "city": {
                   "type": "string"
                 }
               }
             }
+          },
+          {
+            "name": "item",
+            "in": "query",
+            "description": "for current day or forecast on 5 days ",
+            "required": false,
+            "type": "string",
+            "enum": ["CurrentDay", "For5Days"]
           }
         ],
         "responses": {
           "200": {
-            "description": "Get tokens",
+            "description": "get forecast of current city",
             "schema": {
               "type": "object",
-              "$ref": "#/definitions/TokenResponse"
+              "$ref": "#/definitions/forecast"
             }
+          },
+          "401": {
+            "description": "Unauthorized"
+
+          },
+          "404": {
+            "description": "Not Found. You can get 404 error if data with requested parameters (lat, lon, date etc) does not exist in service database. You must not retry the same request"
           }
         }
       }
@@ -750,32 +762,16 @@
         }
       }
     },
-    "user": {
+    "forecast": {
       "type": "object",
       "properties": {
-        "_id": {
-          "type": "string",
-          "description": "User id"
-        },
-        "name": {
-          "type": "string",
-          "description": "User name"
-        },
-        "email": {
-          "type": "string",
-          "description": "User email"
-        },
-        "password": {
-          "type": "string",
-          "description": "User password"
-        },
-        "city": {
-          "type": "string",
-          "description": "User city"
-        },
-        "age": {
-          "type": "string",
-          "description": "User age"
+          "astronomical": {
+            "type": "object",
+            "description": ""
+          },
+        "weather": {
+          "type": "object",
+          "description": ""
         }
       }
     },
@@ -827,5 +823,4 @@
     }
   }
 }
-
 

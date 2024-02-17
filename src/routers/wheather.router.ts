@@ -6,12 +6,14 @@ import { subscriberBodyMiddleware } from "../middlewares/subscriberCheckIdMidlew
 
 const router = Router();
 
-router.get("/cityForecast", forecastController.getCityForecast);
+router.post("/cityForecast", forecastController.getCityForecast);
+router.post("/getAirCondition", forecastController.getAirCondition);
 router.post(
   "/subscribe",
   subscriberBodyMiddleware.checkBody,
   subscriberBodyMiddleware.createOrThrow,
   adminController.createSubscribe,
 );
+router.post("/stop-subscribe", adminController.stopSubscribe);
 
 export const weatherRouter = router;

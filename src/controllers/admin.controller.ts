@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 
 import { adminService } from "../services/admin.service";
 import { ISubscriber } from "../types/user.interface";
+import { SubscriberValidator } from "../validators/subscriber.validator";
 
 class AdminController {
   public async getAll(req: Request, res: Response, next: NextFunction) {
@@ -27,6 +28,23 @@ class AdminController {
 
       return res.json({
         data: user,
+      });
+    } catch (e) {
+      next(e);
+    }
+  }
+  public async stopSubscribe(req: Request, res: Response, next: NextFunction) {
+    try {
+      const email = req.body;
+
+      const { error, value } = SubscriberValidator.checkEmail.validate(email);
+      console.log(value);
+      console.log(error);
+
+      await adminService.deleteSubscribeUser(value.email);
+
+      return res.json({
+        data: "You have unsubscribed ",
       });
     } catch (e) {
       next(e);

@@ -191,8 +191,86 @@
         }
       }
 
+    },
+    "/admin/getAll": {
+      "get": {
+        "tags": ["Admin"],
+        "summary": "Get all Subscribers ",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "get subscriber by id and delete",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of all subscribers ",
+            "schema": {
+              "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/subscribe"
+                  }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+
+          }
+        }
+      }
+
+    },
+    "/admin/delete": {
+      "delete": {
+        "tags": ["Admin"],
+        "summary": "Delete subscriber by id ",
+        "parameters": [
+          {
+            "in": "body",
+            "description": "Delete subcriber",
+            "required": true,
+            "name": "id",
+            "schema": {
+              "properties": {
+                "id":{
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "delete subscriber ",
+            "schema": {
+              "type": "string",
+              "properties": {
+                "data": "subscriber was deleted"
+              }
+            },
+            "examples": {
+              "application/json": {
+                "data": "subscriber was deleted"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+
+          },
+          "400": {
+            "description": "Subscriber not found"
+
+          }
+        }
+      }
+
     }
   },
+
   "definitions": {
     "air": {
       "type": "object",
@@ -255,57 +333,11 @@
       "properties": {
           "astronomical": {
             "type": "object",
-            "description": ""
+            "description": "sunrise and sunset"
           },
         "weather": {
           "type": "object",
-          "description": ""
-        }
-      }
-    },
-    "TokenResponse": {
-      "type": "object",
-      "properties": {
-        "accessToken": {
-          "type": "string",
-          "description": "Access token for authentication"
-        },
-        "refreshToken": {
-          "type": "string",
-          "description": "Refresh token for authentication"
-        }
-      }
-    },
-    "Car": {
-      "type": "object",
-      "properties": {
-        "_id":{
-          "type": "string"
-        },
-        "userId": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "type_currency": {
-          "type": "string",
-          "enum": ["UAH", "EUR", "USD"]
-        },
-        "image": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "boughtBy": {
-          "type": "string"
-        },
-        "likes": {
-          "type": "string"
-        },
-        "views": {
-          "type": "string"
+          "description": "data of forecast"
         }
       }
     }

@@ -54,7 +54,9 @@ class AdminController {
   }
   public async deleteById(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params;
+      const { id } = req.body;
+
+      console.log(id);
 
       const user = await subscriber.findByIdAndDelete(id);
 

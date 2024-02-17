@@ -9,11 +9,5 @@ export const configs = {
   JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET,
   NO_REPLY_EMAIL: process.env.NO_REPLY_EMAIL,
   PASS: process.env.PASS,
-  JWT_ACTIVE_SECRET: process.env.JWT_ACTIVE_SECRET,
-  AWS_ACCESS_KEY: process.env.AWS_ACCESS_KEY,
-  AWS_SECRET_KEY: process.env.AWS_SECRET_KEY,
-  AWS_BUCKED: process.env.AWS_BUCKED,
-  AWS_REGION: process.env.AWS_REGION,
-  AWS_S3_URL: process.env.AWS_S3_URL,
   Api_Key: process.env.Api_Key,
 };

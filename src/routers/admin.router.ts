@@ -7,7 +7,7 @@ const router = Router();
 
 router.get("/getAll", adminController.getAll);
 router.delete(
-  "/delete:id",
+  "/delete",
   subscriberBodyMiddleware.checkId,
   adminController.deleteById,
 );

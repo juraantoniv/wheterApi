@@ -1,6 +1,6 @@
 # Express Node.js Project
 
-This project utilizes Express.js to create endpoints for various functionalities.
+This project utilizes Express.js to create endpoints for various functionalities weather api.
 
 ## Table of Contents
 

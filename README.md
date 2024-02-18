@@ -38,7 +38,7 @@ checks for weather alerts and sends email notifications to subscribers based on 
 Second Cron job do it:
 
 
-`Imports: Similar to before, you're importing necessary modules and dependencies such as CronJob from the cron package, 
+`Imports: Similar to before, we're importing necessary modules and dependencies such as CronJob from the cron package, 
 OpenWeatherAPI from "openweather-api-node", configurations, an enum for email actions, a function for converting temperatures, 
 the subscriber model, and an email service.`
 

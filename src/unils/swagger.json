@@ -1,9 +1,9 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "1.0.0",
+    "version": "2.0.0",
     "title": "Cars API",
-    "description": "API documentation for cars api"
+    "description": "API documentation for weather api"
   },
   "tags": [
     { "name": "Forecast", "description": "Get forecast" },
@@ -230,7 +230,7 @@
         "parameters": [
           {
             "in": "body",
-            "description": "Delete subcriber",
+            "description": "Delete subscriber",
             "required": true,
             "name": "id",
             "schema": {
@@ -257,11 +257,11 @@
               }
             }
           },
-          "401": {
-            "description": "Unauthorized"
+          "400": {
+            "description": "Not valid ID"
 
           },
-          "400": {
+          "404": {
             "description": "Subscriber not found"
 
           }

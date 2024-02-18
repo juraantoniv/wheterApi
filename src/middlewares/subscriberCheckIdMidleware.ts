@@ -27,7 +27,7 @@ class SubscriberBodyMiddleware {
     try {
       const { id } = req.body;
       if (!mongoose.isObjectIdOrHexString(id)) {
-        throw new ApiError("Not valid ID", 400);
+        throw new ApiError("Not valid ID", 404);
       }
       next();
     } catch (e) {
